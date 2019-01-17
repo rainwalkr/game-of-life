@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Conway's Game Of Life</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="./life.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <style>
+        #world {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div id='world'></div>
+    <script>
+        var canvasWidth = 500,
+            canvasHeight = 500,
+            resolution = 10;
+
+        var life = new GameOfLife(canvasWidth / resolution, canvasHeight / resolution);
+
+        life.init();
+
+        var sketch = function (p) {
+            p.setup = function () {
+                p.createCanvas(canvasWidth, canvasHeight);
+                // p.noLoop()
+            }
+
+            p.draw = function () {
+
+                var grid = life.getGrid().get();
+
+                for (var x = 0; x < p.width; x += resolution) {
+                    for (var y = 0; y < p.height; y += resolution) {
+                        // strokeWeight(0);
+                        p.stroke('#eeeeee');
+                        if (grid[x / resolution][y / resolution] === 1) {
+                            p.fill('black');
+                        } else {
+                            p.fill('#fff')
+                        }
+                        p.rect(x, y, resolution, resolution)
+                    }
+                }
+
+                // for (var d = 0; d < 10000000; d++) {
+
+                // }
+
+                life.tick()
+            }
+        };
+        new p5(sketch, window.document.getElementById('world'));
+    </script>
 </body>
+
 </html>

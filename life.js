@@ -18,7 +18,7 @@ Grid.prototype = {
     getCellValue:function(cell){
         return this.array[cell.i][cell.j];
     },
-    setCellValue:function(cell,value){
+    setCell:function(cell,value){
         this.array[cell.i][cell.j] = value;
         return this;
     }
@@ -65,9 +65,16 @@ GameOfLife.prototype = {
     
     init:function(){
         // oscillator
-       this.grid.setCellValue({i:1,j:1},1)
-        .setCellValue({i:1,j:0},1)
-        .setCellValue({i:1,j:2},1)
+       this.grid.setCell({i:1,j:1},1)
+        .setCell({i:1,j:0},1)
+        .setCell({i:1,j:2},1)
+        .setCell({i:2,j:3},1)
+        .setCell({i:4,j:1},1)
+        .setCell({i:3,j:2},1)
+        .setCell({i:3,j:0},1)
+        .setCell({i:2,j:1},1)
+        .setCell({i:5,j:2},1)
+        .setCell({i:5,j:1},1)
     },
     getGrid:function(){
         return this.grid;
@@ -87,11 +94,11 @@ GameOfLife.prototype = {
                     }.bind(this))
 
                 if (this.grid.getCellValue(currentCell) === 0 && livingNeighbours.length === 3) {
-                    nextGrid.setCellValue(currentCell,1)
+                    nextGrid.setCell(currentCell,1)
                 } else if (this.grid.getCellValue(currentCell) === 1 && (livingNeighbours.length === 2 || livingNeighbours.length === 3)) {
-                    nextGrid.setCellValue(currentCell,1)
+                    nextGrid.setCell(currentCell,1)
                 } else {
-                    nextGrid.setCellValue(currentCell,0)
+                    nextGrid.setCell(currentCell,0)
                 }
            }            
         }
@@ -100,15 +107,4 @@ GameOfLife.prototype = {
     }
 }
 
-
-var life =  new GameOfLife(30,30);
-
-life.init()
-
-life.tick();
-life.tick();
-life.tick();
-
-
-console.table(life.getGrid().get())
 
