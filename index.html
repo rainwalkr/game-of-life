@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Conway's Game Of Life</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <script src="./life.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
     <style>
@@ -18,6 +19,7 @@
 
         html, body {
             height: 100%;
+            font-family: monospace;
         }
         .container {
             display: flex;
@@ -27,14 +29,22 @@
             height: 100%;
         }
         .game-container{
-            display: flex;
+            /* display: flex; */
 
         }
         #world{
             border: 1px solid gainsboro;
         }
         .dashboard {
-            /* padding: 10px; */
+            padding: 10px 15px;
+        }
+        .m-0 {
+            margin: 0px;
+        }
+        .heading {
+            font-family: 'VT323', monospace;
+            font-size: 34px;
+            font-weight: 400;
         }
     </style>
 </head>
@@ -44,6 +54,7 @@
         <div class="game-container">
             <div id='world'></div>
             <div class="dashboard">
+                <div class="heading">Conway's Game of life</div>
             </div>
         </div>
     </div>
