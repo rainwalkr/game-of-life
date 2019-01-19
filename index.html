@@ -9,23 +9,51 @@
     <script src="./life.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
     <style>
-        #world {
+        /* .container {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+        } */
+
+        html, body {
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .game-container{
+            display: flex;
+
+        }
+        #world{
+            border: 1px solid gainsboro;
+        }
+        .dashboard {
+            /* padding: 10px; */
         }
     </style>
 </head>
 
 <body>
-    <div id='world'></div>
+    <div class="container">
+        <div class="game-container">
+            <div id='world'></div>
+            <div class="dashboard">
+            </div>
+        </div>
+    </div>
+
     <script>
         var canvasWidth = 500,
             canvasHeight = 500,
-            resolution = 10;
+            pixelLength = 10;
 
-        var life = new GameOfLife(canvasWidth / resolution, canvasHeight / resolution);
+        var life = new GameOfLife(canvasWidth / pixelLength, canvasHeight / pixelLength);
 
         life.init();
 
@@ -39,24 +67,25 @@
 
                 var grid = life.getGrid().get();
 
-                for (var x = 0; x < p.width; x += resolution) {
-                    for (var y = 0; y < p.height; y += resolution) {
-                        // strokeWeight(0);
-                        p.stroke('#eeeeee');
-                        if (grid[x / resolution][y / resolution] === 1) {
+                for (var x = 0; x < p.width; x += pixelLength) {
+                    for (var y = 0; y < p.height; y += pixelLength) {
+                        // p.strokeWeight(0);
+                        p.stroke('#eee');
+                        if (grid[x / pixelLength][y / pixelLength] === 1) {
                             p.fill('black');
                         } else {
                             p.fill('#fff')
                         }
-                        p.rect(x, y, resolution, resolution)
+                        p.rect(x, y, pixelLength, pixelLength)
                     }
                 }
-
-                // for (var d = 0; d < 10000000; d++) {
-
-                // }
-
                 life.tick()
+            }
+
+            p.keyPressed = function(){
+                if (p.keyCode === 32) {
+                    p._loop? p.noLoop() :p.loop()
+                }
             }
         };
         new p5(sketch, window.document.getElementById('world'));
