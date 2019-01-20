@@ -21,6 +21,11 @@ Grid.prototype = {
     setCell:function(cell,value){
         this.array[cell.i][cell.j] = value;
         return this;
+    },
+    setCells:function(entries){
+        entries.forEach(function(entry){
+            this.setCell(entry.cell,entry.value)
+        }.bind(this))
     }
 }
 
@@ -64,17 +69,18 @@ function GameOfLife(rows,cols) {
 GameOfLife.prototype = {
     
     init:function(){
-        // oscillator
-       this.grid.setCell({i:1,j:1},1)
-        .setCell({i:1,j:0},1)
-        .setCell({i:1,j:2},1)
-        .setCell({i:2,j:3},1)
-        .setCell({i:4,j:1},1)
-        .setCell({i:3,j:2},1)
-        .setCell({i:3,j:0},1)
-        .setCell({i:2,j:1},1)
-        .setCell({i:5,j:2},1)
-        .setCell({i:5,j:1},1)
+        this.grid.setCells([
+            {cell:{i:1,j:1},value:1},
+            {cell:{i:1,j:0},value:1},
+            {cell:{i:1,j:2},value:1},
+            {cell:{i:2,j:3},value:1},
+            {cell:{i:4,j:1},value:1},
+            {cell:{i:3,j:2},value:1},
+            {cell:{i:3,j:0},value:1},
+            {cell:{i:2,j:1},value:1},
+            {cell:{i:5,j:2},value:1},
+            {cell:{i:5,j:1},value:1},
+        ])
     },
     getGrid:function(){
         return this.grid;
